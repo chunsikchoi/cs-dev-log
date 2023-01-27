@@ -1,4 +1,4 @@
-package cs.dev.log.security.user;
+package cs.dev.log.security.auth;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -19,11 +19,11 @@ import java.net.URI;
 @RequestMapping(value = "/auth", produces = {MediaType.APPLICATION_JSON_VALUE})
 @RequiredArgsConstructor
 @RestController
-public class UserController {
+public class AuthController {
     @Operation(summary = "Bearer 로그인", description = "ID/PW 인증을 통한 토큰 생성")
     @ApiResponse(responseCode = "201", description = "정상")
     @PostMapping(value = "/bearer", consumes = {MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<?> postBearer(@RequestBody UserDto request) {
+    public ResponseEntity<?> postBearer(@RequestBody AuthDto request) {
         System.out.println(request);
         return ResponseEntity.created(URI.create(ServletUriComponentsBuilder.fromCurrentRequestUri().toUriString())).build();
     }

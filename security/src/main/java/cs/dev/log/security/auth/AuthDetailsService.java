@@ -1,4 +1,4 @@
-package cs.dev.log.security.user;
+package cs.dev.log.security.auth;
 
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -11,12 +11,12 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 @Service
-public class UserService implements UserDetailsService {
+public class AuthDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Map<String, Object> detailsMap = new LinkedHashMap<>();
         detailsMap.put("name", "관리자");
-        return UserDetail.builder()
+        return AuthDetails.builder()
                 .username(username)
                 .password(username)
                 .authorities(Collections.singletonList(new SimpleGrantedAuthority("ROLE_ADMIN")))

@@ -1,7 +1,7 @@
 package cs.dev.log.security.filter;
 
+import cs.dev.log.security.auth.AuthDetails;
 import cs.dev.log.security.provider.JwtTokenProvider;
-import cs.dev.log.security.user.UserDetail;
 import org.springframework.core.log.LogMessage;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -63,12 +63,12 @@ public class JwtBasicAuthenticationFilter extends BasicAuthenticationFilter {
             this.logger.info(LogMessage.format("Found username '%s' in Basic Authorization header", username));
 
             if (this.authenticationIsRequired(username)) {
-                UserDetail userDetail = UserDetail.builder()
+                AuthDetails authDetails = AuthDetails.builder()
                         .username(username)
                         .authorities(Collections.singletonList(new SimpleGrantedAuthority("ROLE_ADMIN")))
                         .build();
 
-                Authentication authResult = new UsernamePasswordAuthenticationToken(userDetail, null, userDetail.getAuthorities());
+                Authentication authResult = new UsernamePasswordAuthenticationToken(authDetails, null, authDetails.getAuthorities());
 
                 SecurityContext context = SecurityContextHolder.createEmptyContext();
                 context.setAuthentication(authResult);

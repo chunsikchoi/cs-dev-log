@@ -1,10 +1,10 @@
 package cs.dev.log.security.config;
 
+import cs.dev.log.security.auth.AuthDetailsService;
 import cs.dev.log.security.filter.JwtBasicAuthenticationFilter;
 import cs.dev.log.security.filter.JwtBearerAuthenticationFilter;
 import cs.dev.log.security.provider.JwtAuthenticationProvider;
 import cs.dev.log.security.provider.JwtTokenProvider;
-import cs.dev.log.security.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
@@ -37,7 +37,7 @@ public class WebSecurityConfig {
     private static final String BEARER_REQUEST_URL = "/auth/bearer";
     private static final List<String> BASIC_REQUEST_URL = List.of("/auth/basic");
     private final JwtTokenProvider jwtTokenProvider;
-    private final UserService userService;
+    private final AuthDetailsService authDetailsService;
 
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
@@ -83,7 +83,7 @@ public class WebSecurityConfig {
 
     @Bean
     public AuthenticationManager authenticationManager() {
-        return new ProviderManager(new JwtAuthenticationProvider(userService));
+        return new ProviderManager(new JwtAuthenticationProvider(authDetailsService));
     }
 
     @Bean

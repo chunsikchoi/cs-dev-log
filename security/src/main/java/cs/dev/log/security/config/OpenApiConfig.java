@@ -35,7 +35,7 @@ public class OpenApiConfig {
                         .title("CS-DEV-LOG")
                         .version("1.0.0")
                         .description("Security Modules Specifications")
-                        .termsOfService("http://localhost:8080")
+                        .termsOfService("http://localhost:11110")
                         .contact(new Contact().name("Web Developer"))
                         .license(new License().name("CSCHOI"))
                 );

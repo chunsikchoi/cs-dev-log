@@ -1,4 +1,4 @@
-package cs.dev.log.security.user;
+package cs.dev.log.security.auth;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -15,7 +15,7 @@ import java.util.Collection;
 @SuperBuilder
 @Setter
 @Getter
-public class UserDetail implements UserDetails {
+public class AuthDetails implements UserDetails {
     private String username;
     private String password;
     private Collection<?> authorities;

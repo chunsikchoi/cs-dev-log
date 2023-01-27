@@ -1,2 +1,9 @@
 application:
   title: CS-DEV-LOG-SECURITY
+
+server:
+  port: 11110
+
+logging:
+  level:
+    root: debug

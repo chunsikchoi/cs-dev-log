@@ -1,7 +1,7 @@
 package cs.dev.log.security.provider;
 
-import cs.dev.log.security.user.UserDetail;
-import cs.dev.log.security.user.UserService;
+import cs.dev.log.security.auth.AuthDetails;
+import cs.dev.log.security.auth.AuthDetailsService;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -9,10 +9,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 
 public class JwtAuthenticationProvider implements AuthenticationProvider {
-    private final UserService userService;
+    private final AuthDetailsService authDetailsService;
 
-    public JwtAuthenticationProvider(UserService userService) {
-        this.userService = userService;
+    public JwtAuthenticationProvider(AuthDetailsService authDetailsService) {
+        this.authDetailsService = authDetailsService;
     }
 
     @Override
@@ -22,13 +22,13 @@ public class JwtAuthenticationProvider implements AuthenticationProvider {
         String username = token.getName();
         String password = (String) token.getCredentials();
 
-        UserDetail userDetail = (UserDetail) userService.loadUserByUsername(username);
+        AuthDetails authDetails = (AuthDetails) authDetailsService.loadUserByUsername(username);
 
-        if (!userDetail.getPassword().equalsIgnoreCase(password)) {
+        if (!authDetails.getPassword().equalsIgnoreCase(password)) {
             throw new BadCredentialsException("Invalid password.");
         }
 
-        return new UsernamePasswordAuthenticationToken(userDetail, null, userDetail.getAuthorities());
+        return new UsernamePasswordAuthenticationToken(authDetails, null, authDetails.getAuthorities());
     }
 
     @Override
