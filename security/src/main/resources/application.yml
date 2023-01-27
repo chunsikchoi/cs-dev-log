@@ -1,6 +1,10 @@
 application:
   title: CS-DEV-LOG-SECURITY
 
+spring:
+  profiles:
+    active: local
+
 server:
   port: 11110
 

@@ -1,0 +1,15 @@
+POST http://localhost:11120/webflux
+Accept: application/json
+Content-Type: application/json
+
+{
+  "id": "1",
+  "name": "홍길동"
+}
+
+###[
+###  {
+###    "id": "1",
+###    "name": "홍길동"
+###  }
+###]
