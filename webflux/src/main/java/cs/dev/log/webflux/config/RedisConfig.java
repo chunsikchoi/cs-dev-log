@@ -1,6 +1,5 @@
 package cs.dev.log.webflux.config;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -14,9 +13,12 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 @Configuration
 public class RedisConfig {
+    private static final String HOST = "127.0.0.1";
+    private static final int PORT = 6379;
+
     @Bean
-    public ReactiveRedisConnectionFactory reactiveRedisConnectionFactory(@Value("${spring.redis.host}") String host, @Value("${spring.redis.port}") int port) {
-        return new LettuceConnectionFactory(host, port);
+    public ReactiveRedisConnectionFactory reactiveRedisConnectionFactory() {
+        return new LettuceConnectionFactory(HOST, PORT);
     }
 
     @Primary

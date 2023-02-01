@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="kr">
+<head>
+  <meta charset="UTF-8">
+  <title>SSE</title>
+  <style>
+    *{ margin: 0; padding: 0; }
+    .chat_wrap .header { font-size: 14px; padding: 15px 0; background: #000; color: white; text-align: center; font-weight: bold; }
+    .chat_wrap .chat { padding-bottom: 80px; }
+    .chat_wrap .chat ul { width: 100%; list-style: none; }
+    .chat_wrap .chat ul li { width: 100%; }
+    .chat_wrap .chat ul li.left { text-align: left; }
+    .chat_wrap .chat ul li.right { text-align: right; }
+    .chat_wrap .chat ul li > div { font-size: 13px; }
+    .chat_wrap .chat ul li > div.sender { margin: 10px 20px 0 20px; font-weight: bold; }
+    .chat_wrap .chat ul li > div.message { display: inline-block; word-break:break-all; margin: 5px 20px; max-width: 75%; border: 1px solid #888; padding: 10px; border-radius: 5px; background-color: #FCFCFC; color: #555; text-align: left; }
+    .chat_wrap .chat ul li.right > div.message { background: #F9E000 }
+    .chat_wrap .input-div { position: fixed; bottom: 0; width: 100%; background-color: #FFF; text-align: center; border-top: 1px solid #000; }
+    .chat_wrap .input-div > textarea { width: 100%; height: 80px; border: none; padding: 10px; }
+    .chat_wrap .radio-div { position: fixed; bottom: 105px; width: 100%; background-color: #FFF; text-align: center; }
+    .chat_wrap .radio-div > input { display: none; }
+    .chat_wrap .radio-div > input+label { margin: 0.5rem; display: inline-block; cursor: pointer; width: 300px; border: 1px solid #333; text-align: center; font-weight:bold; }
+    .chat_wrap .radio-div > input:checked+label { background-color: #000; color: #FFF; }
+    .chat_wrap .radio-div > label { background-color: #FFF; color: #000; }
+    .format { display: none; }
+  </style>
+</head>
+<body>
+<div class="chat_wrap">
+  <div class="header">
+    Server-Send-Events
+  </div>
+  <div class="chat">
+    <ul>
+      <!-- format -->
+    </ul>
+  </div>
+  <div class="radio-div">
+    <input type="radio" name="user" id="radio1" value="TO" checked="" autocomplete="off">
+    <label for="radio1">TO</label>
+    <input type="radio" name="user" id="radio2" value="FROM" autocomplete="off">
+    <label for="radio2">FROM</label>
+  </div>
+  <div class="input-div">
+    <textarea placeholder="Press Enter for send message."></textarea>
+  </div>
+  <!-- format -->
+  <div class="chat format">
+    <ul>
+      <li>
+        <div class="sender">
+          <span></span>
+        </div>
+        <div class="message">
+          <span></span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <!-- //format -->
+</div>
+<script src="eventsource.js"></script>
+<script>
+  (function () {
+    const eventId = "CSCHOI";
+    const eventName = "EVENTS";
+
+    document.querySelector('div.input-div textarea').addEventListener('keydown', function (evt) {
+      if (evt.keyCode === 13 && !evt.shiftKey) {
+        evt.preventDefault();
+        fetch("/sse", {
+          method: "POST",
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            id: eventId,
+            name: eventName,
+            data: this.value
+          })
+        }).then(() => {
+          this.value = "";
+        });
+      }
+    });
+
+    const eventSource = new EventSource("/sse", {
+      headers: {
+        'Event-Id': eventId
+      }
+    });
+
+    eventSource.onmessage = (ev) => {
+      console.log("onmessage", ev);
+    };
+
+    eventSource.onopen = (ev) => {
+      console.log("onopen", ev);
+    };
+
+    eventSource.onerror = (ev) => {
+      console.error("onerror", ev);
+    };
+
+    eventSource.addEventListener(eventName, (res) => {
+      const {data: receivedData} = res;
+      const format = document.querySelector('div.chat.format ul li').cloneNode(true);
+      if (document.querySelector('input[type="radio"]:checked').value === "TO") format.classList.add("right"); else format.classList.add("left");
+      format.querySelector('.sender span').innerHTML = new Date().toLocaleTimeString();
+      format.querySelector('.message span').innerHTML = receivedData;
+      document.querySelector('div.chat:not(.format) ul').append(format);
+    });
+  })();
+</script>
+</body>
+</html>

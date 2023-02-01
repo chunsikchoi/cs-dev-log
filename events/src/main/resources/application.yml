@@ -1,0 +1,21 @@
+application:
+  title: CS-DEV-LOG-EVENTS
+
+spring:
+  profiles:
+    active: local
+  web:
+    resources:
+      static-locations: classpath:static
+  devtools:
+    livereload:
+      enabled: true
+  thymeleaf:
+    cache: false
+
+server:
+  port: 11130
+
+logging:
+  level:
+    root: debug

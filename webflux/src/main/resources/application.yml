@@ -4,10 +4,6 @@ application:
 spring:
   profiles:
     active: local
-  redis:
-    host: 127.0.0.1
-    port: 6379
-    max-heap: maxmemory 128M
 
 server:
   port: 11120

@@ -1,4 +1,4 @@
-package cs.dev.log.webflux.config;
+package cs.dev.log.events.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
