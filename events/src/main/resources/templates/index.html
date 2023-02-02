@@ -2,7 +2,7 @@
 <html lang="kr">
 <head>
   <meta charset="UTF-8">
-  <title>SSE</title>
+  <title>EVENTS</title>
   <style>
     *{ margin: 0; padding: 0; }
     .chat_wrap .header { font-size: 14px; padding: 15px 0; background: #000; color: white; text-align: center; font-weight: bold; }
@@ -68,7 +68,7 @@
     document.querySelector('div.input-div textarea').addEventListener('keydown', function (evt) {
       if (evt.keyCode === 13 && !evt.shiftKey) {
         evt.preventDefault();
-        fetch("/sse", {
+        fetch("/events", {
           method: "POST",
           headers: {
             'Accept': 'application/json',
@@ -85,7 +85,7 @@
       }
     });
 
-    const eventSource = new EventSource("/sse", {
+    const eventSource = new EventSource("/events", {
       headers: {
         'Event-Id': eventId
       }
@@ -105,8 +105,9 @@
 
     eventSource.addEventListener(eventName, (res) => {
       const {data: receivedData} = res;
+      const value = document.querySelector('input[type="radio"]:checked').value;
       const format = document.querySelector('div.chat.format ul li').cloneNode(true);
-      if (document.querySelector('input[type="radio"]:checked').value === "TO") format.classList.add("right"); else format.classList.add("left");
+      format.classList.add(value === "TO" ? "right" : "left");
       format.querySelector('.sender span').innerHTML = new Date().toLocaleTimeString();
       format.querySelector('.message span').innerHTML = receivedData;
       document.querySelector('div.chat:not(.format) ul').append(format);
