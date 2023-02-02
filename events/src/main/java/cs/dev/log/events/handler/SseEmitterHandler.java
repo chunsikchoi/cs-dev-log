@@ -1,7 +1,6 @@
 package cs.dev.log.events.handler;
 
 import cs.dev.log.events.dto.SseEmitterDto;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
@@ -12,7 +11,6 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
-@RequiredArgsConstructor
 @Component
 public class SseEmitterHandler {
     private final Map<String, SseEmitter> emitters = new ConcurrentHashMap<>();
