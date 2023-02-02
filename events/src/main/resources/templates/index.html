@@ -5,28 +5,28 @@
   <title>EVENTS</title>
   <style>
     *{ margin: 0; padding: 0; }
-    .chat_wrap .header { font-size: 14px; padding: 15px 0; background: #000; color: white; text-align: center; font-weight: bold; }
-    .chat_wrap .chat { padding-bottom: 80px; }
-    .chat_wrap .chat ul { width: 100%; list-style: none; }
-    .chat_wrap .chat ul li { width: 100%; }
-    .chat_wrap .chat ul li.left { text-align: left; }
-    .chat_wrap .chat ul li.right { text-align: right; }
-    .chat_wrap .chat ul li > div { font-size: 13px; }
-    .chat_wrap .chat ul li > div.sender { margin: 10px 20px 0 20px; font-weight: bold; }
-    .chat_wrap .chat ul li > div.message { display: inline-block; word-break:break-all; margin: 5px 20px; max-width: 75%; border: 1px solid #888; padding: 10px; border-radius: 5px; background-color: #FCFCFC; color: #555; text-align: left; }
-    .chat_wrap .chat ul li.right > div.message { background: #F9E000 }
-    .chat_wrap .input-div { position: fixed; bottom: 0; width: 100%; background-color: #FFF; text-align: center; border-top: 1px solid #000; }
-    .chat_wrap .input-div > textarea { width: 100%; height: 80px; border: none; padding: 10px; }
-    .chat_wrap .radio-div { position: fixed; display: inline-flex; bottom: 105px; width: 100%; background-color: #FFF; text-align: center; }
-    .chat_wrap .radio-div > input { display: none; }
-    .chat_wrap .radio-div > input+label { margin: 0.3rem; cursor: pointer; width: 100%; border: 1px solid #333; text-align: center; font-weight:bold; }
-    .chat_wrap .radio-div > input:checked+label { background-color: #000; color: #FFF; }
-    .chat_wrap .radio-div > label { background-color: #FFF; color: #000; }
+    .chat-wrap .header { font-size: 14px; padding: 15px 0; background: #000; color: white; text-align: center; font-weight: bold; }
+    .chat-wrap .chat { padding-bottom: 80px; }
+    .chat-wrap .chat ul { width: 100%; list-style: none; }
+    .chat-wrap .chat ul li { width: 100%; }
+    .chat-wrap .chat ul li.left { text-align: left; }
+    .chat-wrap .chat ul li.right { text-align: right; }
+    .chat-wrap .chat ul li > div { font-size: 13px; }
+    .chat-wrap .chat ul li > div.sender { margin: 10px 20px 0 20px; font-weight: bold; }
+    .chat-wrap .chat ul li > div.message { display: inline-block; word-break:break-all; margin: 5px 20px; max-width: 75%; border: 1px solid #888; padding: 10px; border-radius: 5px; background-color: #FCFCFC; color: #555; text-align: left; }
+    .chat-wrap .chat ul li.right > div.message { background: #F9E000 }
+    .chat-wrap .input-div { position: fixed; bottom: 0; width: 100%; background-color: #FFF; text-align: center; border-top: 1px solid #000; }
+    .chat-wrap .input-div > textarea { width: 100%; height: 80px; border: none; padding: 10px; }
+    .chat-wrap .radio-div { position: fixed; display: inline-flex; bottom: 105px; width: 100%; background-color: #FFF; text-align: center; }
+    .chat-wrap .radio-div > input { display: none; }
+    .chat-wrap .radio-div > input+label { margin: 0.3rem; cursor: pointer; width: 100%; border: 1px solid #333; text-align: center; font-weight:bold; }
+    .chat-wrap .radio-div > input:checked+label { background-color: #000; color: #FFF; }
+    .chat-wrap .radio-div > label { background-color: #FFF; color: #000; }
     .format { display: none; }
   </style>
 </head>
 <body>
-<div class="chat_wrap">
+<div class="chat-wrap">
   <div class="header">
     Server-Send-Events
   </div>
